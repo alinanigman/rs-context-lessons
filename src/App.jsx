@@ -1,21 +1,8 @@
-import { useReducer, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Header, UserBlock } from "./components";
 import { AppContext } from "./context";
+import { store } from "./store";
 import styles from "./App.module.css";
-
-const reducer = (state, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case "SET_USER_DATA": {
-      return payload;
-    }
-    case "SET_USER_AGE": {
-      return { ...state, age: payload };
-    }
-    default:
-      return state;
-  }
-};
 
 const getUserFromServer = (id) => {
   if (id === 1) {
@@ -37,16 +24,17 @@ const getUserFromServer = (id) => {
 };
 
 export const App = () => {
-  const [userData, dispatch] = useReducer(reducer, {});
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     const requestData = getUserFromServer(1);
-    dispatch({ type: "SET_USER_DATA", payload: requestData });
+    store.dispatch({ type: "SET_USER_DATA", payload: requestData });
+    setUserData(store.getState());
   }, []);
 
   const onChangeUser = () => {
     const requestData = getUserFromServer(2);
-    dispatch({ type: "SET_USER_DATA", payload: requestData });
+    store.dispatch({ type: "SET_USER_DATA", payload: requestData });
   };
 
   if (!userData) {
@@ -54,7 +42,7 @@ export const App = () => {
   }
 
   return (
-    <AppContext value={{ userData, dispatch }}>
+    <AppContext value={{ userData }}>
       <div className={styles.App}>
         <Header />
         <hr />
