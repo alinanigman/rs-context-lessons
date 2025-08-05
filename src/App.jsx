@@ -32,6 +32,10 @@ export const App = () => {
         setUserData(payload);
         break;
       }
+      case "SET_USER_AGE": {
+        setUserData({ ...userData, age: payload });
+        break;
+      }
       default: {
         break;
       }

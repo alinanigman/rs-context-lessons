@@ -7,8 +7,8 @@ export const UserPersonalInfo = () => {
 
   const onChangeUser = () => {
     dispatch({
-      type: "SET_USER_DATA",
-      payload: { ...userData, age: Math.ceil(Math.random() * 100) },
+      type: "SET_USER_AGE",
+      payload: Math.ceil(Math.random() * 100),
     });
   };
 
