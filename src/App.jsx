@@ -3,6 +3,20 @@ import { Header, UserBlock } from "./components";
 import { AppContext } from "./context";
 import styles from "./App.module.css";
 
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "SET_USER_DATA": {
+      return payload;
+    }
+    case "SET_USER_AGE": {
+      return { ...state, age: payload };
+    }
+    default:
+      return state;
+  }
+};
+
 const getUserFromServer = (id) => {
   if (id === 1) {
     return {
@@ -26,20 +40,8 @@ export const App = () => {
   const [userData, setUserData] = useState();
 
   const dispatch = (action) => {
-    const { type, payload } = action;
-    switch (type) {
-      case "SET_USER_DATA": {
-        setUserData(payload);
-        break;
-      }
-      case "SET_USER_AGE": {
-        setUserData({ ...userData, age: payload });
-        break;
-      }
-      default: {
-        break;
-      }
-    }
+    const newState = reducer(userData, action);
+    setUserData(newState);
   };
 
   useEffect(() => {
