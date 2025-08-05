@@ -1,10 +1,9 @@
-import { AppContext } from "@/context";
-import { use } from "react";
+import { useStoreSelector } from "@/hooks/useStoreSelector";
 
 export const UserContacts = () => {
-  const { userData } = use(AppContext);
-  const { email, phone } = userData;
-  
+  const email = useStoreSelector((state) => state.email);
+  const phone = useStoreSelector((state) => state.phone);
+
   return (
     <div>
       <p>Email: {email}</p>

@@ -1,12 +1,12 @@
-import { AppContext } from "@/context";
-import { use } from "react";
+import { useStoreSelector } from "@/hooks/useStoreSelector";
+import { store } from "@/store";
 
 export const UserPersonalInfo = () => {
-  const { userData, dispatch } = use(AppContext);
-  const { name, age } = userData;
+  const name = useStoreSelector((state) => state.name);
+  const age = useStoreSelector((state) => state.age);
 
   const onChangeUser = () => {
-    dispatch({
+    store.dispatch({
       type: "SET_USER_AGE",
       payload: Math.ceil(Math.random() * 100),
     });

@@ -1,9 +1,6 @@
-import { AppContext } from "@/context";
-import { use } from "react";
+import { useStoreSelector } from "@/hooks/useStoreSelector";
 
 export const CurrentUser = () => {
-  const { userData } = use(AppContext);
-  const { name } = userData;
-
-  return <p>Current user: {name}</p>;
+  const name = useStoreSelector((state) => state.name);
+  return <p>Current user: {name ?? ""}</p>;
 };

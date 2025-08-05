@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Header, UserBlock } from "./components";
-import { AppContext } from "./context";
 import { store } from "./store";
 import styles from "./App.module.css";
 
@@ -42,13 +41,11 @@ export const App = () => {
   }
 
   return (
-    <AppContext value={{ userData }}>
-      <div className={styles.App}>
-        <Header />
-        <hr />
-        <UserBlock />
-      </div>
+    <div className={styles.App}>
+      <Header />
+      <hr />
+      <UserBlock />
       <button onClick={onChangeUser}>Change user</button>
-    </AppContext>
+    </div>
   );
 };
