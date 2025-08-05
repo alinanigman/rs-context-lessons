@@ -1,5 +1,6 @@
-import styles from "./App.module.css";
 import { Header, UserBlock } from "./components";
+import { AppContext } from "./context";
+import styles from "./App.module.css";
 
 const getUserFromServer = () => ({
   id: "userid123456789",
@@ -8,13 +9,17 @@ const getUserFromServer = () => ({
   email: "johndoe@gmail.com",
   phone: "+95551234567",
 });
+
 export const App = () => {
-  const { name, age, email, phone } = getUserFromServer();
+  const userData = getUserFromServer();
+  const { name, age, email, phone } = userData;
   return (
-    <div className={styles.App}>
-      <Header currentUser={name} />
-      <hr />
-      <UserBlock name={name} age={age} email={email} phone={phone} />
-    </div>
+    <AppContext value={userData}>
+      <div className={styles.App}>
+        <Header />
+        <hr />
+        <UserBlock name={name} age={age} email={email} phone={phone} />
+      </div>
+    </AppContext>
   );
 };
