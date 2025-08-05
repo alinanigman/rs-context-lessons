@@ -25,6 +25,19 @@ const getUserFromServer = (id) => {
 export const App = () => {
   const [userData, setUserData] = useState();
 
+  const dispatch = (action) => {
+    const { type, payload } = action;
+    switch (type) {
+      case "SET_USER_DATA": {
+        setUserData(payload);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
+
   useEffect(() => {
     const requestData = getUserFromServer(1);
     setUserData(requestData);
@@ -32,7 +45,7 @@ export const App = () => {
 
   const onChangeUser = () => {
     const requestData = getUserFromServer(2);
-    setUserData(requestData);
+    dispatch({ type: "SET_USER_DATA", payload: requestData });
   };
 
   if (!userData) {
@@ -40,13 +53,13 @@ export const App = () => {
   }
 
   return (
-    <AppContext value={userData}>
+    <AppContext value={{ userData, dispatch }}>
       <div className={styles.App}>
         <Header />
         <hr />
         <UserBlock />
-        <button onClick={onChangeUser}>Change user</button>
       </div>
+      <button onClick={onChangeUser}>Change user</button>
     </AppContext>
   );
 };

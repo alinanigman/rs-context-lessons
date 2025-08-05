@@ -2,7 +2,9 @@ import { AppContext } from "@/context";
 import { use } from "react";
 
 export const UserContacts = () => {
-  const { email, phone } = use(AppContext);
+  const { userData } = use(AppContext);
+  const { email, phone } = userData;
+  
   return (
     <div>
       <p>Email: {email}</p>
