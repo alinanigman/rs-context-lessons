@@ -12,13 +12,12 @@ const getUserFromServer = () => ({
 
 export const App = () => {
   const userData = getUserFromServer();
-  const { name, age, email, phone } = userData;
   return (
     <AppContext value={userData}>
       <div className={styles.App}>
         <Header />
         <hr />
-        <UserBlock name={name} age={age} email={email} phone={phone} />
+        <UserBlock />
       </div>
     </AppContext>
   );
