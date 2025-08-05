@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { Header, UserBlock } from "./components";
 import { AppContext } from "./context";
 import styles from "./App.module.css";
@@ -37,16 +37,11 @@ const getUserFromServer = (id) => {
 };
 
 export const App = () => {
-  const [userData, setUserData] = useState();
-
-  const dispatch = (action) => {
-    const newState = reducer(userData, action);
-    setUserData(newState);
-  };
+  const [userData, dispatch] = useReducer(reducer, {});
 
   useEffect(() => {
     const requestData = getUserFromServer(1);
-    setUserData(requestData);
+    dispatch({ type: "SET_USER_DATA", payload: requestData });
   }, []);
 
   const onChangeUser = () => {
